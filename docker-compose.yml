@@ -3,11 +3,11 @@ web:
   ports:
     - "8080:80"
   volumes:
-    - ./src:/src
+    - ./:/var/www/project:cached
     - ./site.conf:/etc/nginx/conf.d/site.conf
   links:
     - php
 php:
   image: php:7-fpm
   volumes:
-    - ./src:/src
+    - ./:/var/www/project:cached
