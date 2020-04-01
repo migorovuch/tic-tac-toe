@@ -22,19 +22,25 @@ class ServiceLocator
     /**
      * @param string $class
      * @param Service $service
+     * @return ServiceLocator
      */
-    public function addInstance(string $class, Service $service)
+    public function addInstance(string $class, Service $service): self
     {
         $this->instantiated[$class] = $service;
+
+        return $this;
     }
 
     /**
      * @param string $class
      * @param array $params
+     * @return ServiceLocator
      */
-    public function addClass(string $class, array $params)
+    public function addClass(string $class, array $params): self
     {
         $this->services[$class] = $params;
+
+        return $this;
     }
 
     /**

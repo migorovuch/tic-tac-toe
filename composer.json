@@ -1,6 +1,8 @@
 {
   "require": {
-    "altorouter/altorouter": "1.1.0"
+    "altorouter/altorouter": "1.1.0",
+    "zumba/json-serializer": "^2.2",
+    "elisdn/php-hydrator": "^1.0"
   },
   "autoload": {
     "psr-4": {

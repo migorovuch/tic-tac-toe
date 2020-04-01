@@ -2,16 +2,15 @@
 
 namespace TicTacToe\Core;
 
-use AltoRouter;
 use RuntimeException;
 use ReflectionClass;
 
 class Core
 {
     /**
-     * @var AltoRouter
+     * @var RouterInterface
      */
-    protected AltoRouter $router;
+    protected RouterInterface $router;
 
     /**
      * @var ServiceLocator
@@ -20,10 +19,10 @@ class Core
 
     /**
      * Router constructor.
-     * @param AltoRouter $router
+     * @param RouterInterface $router
      * @param ServiceLocator $serviceLocator
      */
-    public function __construct(AltoRouter $router, ServiceLocator $serviceLocator)
+    public function __construct(RouterInterface $router, ServiceLocator $serviceLocator)
     {
         $this->router = $router;
         $this->serviceLocator = $serviceLocator;
@@ -40,8 +39,8 @@ class Core
         $route = $this->router->match($url);
         if (!$route) {
             throw new RuntimeException(
-                Response::REQUEST_STATUS[Response::HTTP_INTERNAL_SERVER_ERROR],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::REQUEST_STATUS[Response::HTTP_NOT_FOUND],
+                Response::HTTP_NOT_FOUND
             );
         }
         [$controllerName, $actionName] = explode('#', $route['target']);

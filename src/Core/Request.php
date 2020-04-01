@@ -11,14 +11,17 @@ class Request
      * @var array
      */
     protected array $query;
+
     /**
      * @var array
      */
     protected array $request;
+
     /**
      * @var null
      */
     protected $content;
+
     /**
      * @var array
      */
@@ -91,5 +94,13 @@ class Request
     public function getServerParam(string $key)
     {
         return $this->server[$key] ?? null;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }
