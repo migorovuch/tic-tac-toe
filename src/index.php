@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Orgin: *");
-header("Access-Control-Allow-Methods: *");
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
 header("Content-Type: application/json");
 
 use TicTacToe\Core\Core;
