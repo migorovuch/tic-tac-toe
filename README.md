@@ -1,6 +1,6 @@
-#Tic-Tac-Toe
+# Tic-Tac-Toe
 
-##Installation
+## Installation
 
 + Update your hosts file (add php-docker.local)
 + Start docker containers
