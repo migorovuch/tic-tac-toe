@@ -4,5 +4,4 @@ namespace TicTacToe\Core;
 
 interface Service
 {
-
 }

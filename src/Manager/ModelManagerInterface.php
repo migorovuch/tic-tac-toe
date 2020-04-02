@@ -28,5 +28,4 @@ interface ModelManagerInterface
      * @param string $modelName
      */
     public function delete(string $id);
-
 }

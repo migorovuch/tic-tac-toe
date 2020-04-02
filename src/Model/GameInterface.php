@@ -52,5 +52,4 @@ interface GameInterface extends ModelInterface
      * @return bool
      */
     public function isEmpty(): bool;
-
 }

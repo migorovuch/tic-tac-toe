@@ -59,4 +59,3 @@ try {
 header("HTTP/1.1 {$response->getCode()} {$response->getStatus()}");
 
 echo $serializer->serialize($response->getContent());
-

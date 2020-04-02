@@ -53,12 +53,12 @@ class Core
         foreach ($actionReflection->getParameters() as $reflectionParameter) {
             $param = null;
             if (($parameterClassReflection = $reflectionParameter->getClass())) {
-                if($this->serviceLocator->has($parameterClassReflection->getName())) {
+                if ($this->serviceLocator->has($parameterClassReflection->getName())) {
                     $param = $this->serviceLocator->get($parameterClassReflection->getName());
-                } elseif($parameterClassReflection->getName() == Request::class) {
+                } elseif ($parameterClassReflection->getName() == Request::class) {
                     $param = $request;
                 }
-            } elseif(isset($route['params'][$reflectionParameter->getName()])) {
+            } elseif (isset($route['params'][$reflectionParameter->getName()])) {
                 $param = $route['params'][$reflectionParameter->getName()];
             }
             $params[] = $param;
