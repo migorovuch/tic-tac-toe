@@ -12,6 +12,8 @@ docker-compose up -d
 composer install
 ```
 
+Game is available by url http://php-docker.local:8080
+
 ## Game flow
 
 * The client (player) starts a game, makes a request to server to initiate a TicTakToe board. ( Client (player) will always use cross )

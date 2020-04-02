@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Orgin: *");
 header("Access-Control-Allow-Methods: *");
 header("Content-Type: application/json");
@@ -25,13 +26,14 @@ require dirname(__DIR__).'/vendor/autoload.php';
 session_start();
 
 $response = new Response();
-$serializer = new JsonSerializer(new ZumbaJsonSerializer(), new Hydrator());
+$serializedData = '';
 try {
     $config = require_once 'config.php';
     $altoRouter = new AltoRouter($config['routes'], $config['basePath'], $config['urlMatchTypes']);
     $router = new Router($altoRouter);
     $request = new Request($_GET, $_POST, $_SERVER, file_get_contents('php://input'));
 
+    $serializer = new JsonSerializer(new ZumbaJsonSerializer(), new Hydrator());
     $serviceLocator = new ServiceLocator();
     $serviceLocator
         ->addInstance(PersistenceInterface::class, new SessionPersistence())
@@ -50,6 +52,9 @@ try {
         );
     $core = new Core($router, $serviceLocator);
     $response = $core->run($request);
+    if($response->getContent()) {
+        $serializedData = $serializer->serialize($response->getContent());
+    }
 } catch (Throwable $exception) {
     $response = new Response(
         ['reason' => $exception->getMessage()],
@@ -58,4 +63,4 @@ try {
 }
 header("HTTP/1.1 {$response->getCode()} {$response->getStatus()}");
 
-echo $serializer->serialize($response->getContent());
+echo $serializedData;
