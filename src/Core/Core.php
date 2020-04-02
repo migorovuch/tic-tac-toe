@@ -4,6 +4,8 @@ namespace TicTacToe\Core;
 
 use RuntimeException;
 use ReflectionClass;
+use TicTacToe\Core\Http\Request;
+use TicTacToe\Core\Http\Response;
 
 class Core
 {

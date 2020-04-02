@@ -11,7 +11,13 @@ namespace TicTacToe\Model;
 interface ModelInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getId(): string;
+    public function getId(): ?string;
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setId(string $id): self;
 }

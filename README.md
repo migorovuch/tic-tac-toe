@@ -1,10 +1,16 @@
-# PHP Assignment
+#Tic-Tac-Toe
 
-Please build REST API for the Tic-Tac-Toe game https://en.wikipedia.org/wiki/Tic-tac-toe.
-We provide you with Yaml file as example of basic REST API setup
+##Installation
 
-* The REST API should be implemented using PHP, no data storage is required.
-Try to keep slim and omit heavy framework usage. Any required libraries and components are allowed.
++ Update your hosts file (add php-docker.local)
++ Start docker containers
+```
+docker-compose up -d
+```
++ install dependencies
+```
+composer install
+```
 
 ## Game flow
 

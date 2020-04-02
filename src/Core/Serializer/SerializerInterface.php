@@ -1,6 +1,6 @@
 <?php
 
-namespace TicTacToe\Core;
+namespace TicTacToe\Core\Serializer;
 
 /**
  * Interface SerializerInterface
@@ -19,5 +19,5 @@ interface SerializerInterface
      * @param string $data
      * @return mixed
      */
-    public function unserialize(string $className, string $data);
+    public function unserialize(string $data, string $className = null);
 }

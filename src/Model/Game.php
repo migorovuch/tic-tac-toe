@@ -5,15 +5,12 @@ namespace TicTacToe\Model;
 /**
  * Class Game
  */
-class Game implements ModelInterface
+class Game implements GameInterface
 {
-    const STATUS_RUNNING = 'RUNNING';
-    const STATUS_END = 'END';
-
     /**
      * @var string
      */
-    protected string $id;
+    protected ?string $id = null;
 
     /**
      * @var string
@@ -26,16 +23,20 @@ class Game implements ModelInterface
     protected string $status = self::STATUS_RUNNING;
 
     /**
-     * @return string
+     * @var string
      */
-    public function getId(): string
+    protected ?string $winner = null;
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
-     * @return Game
+     * @inheritDoc
      */
     public function setId(string $id): self
     {
@@ -45,7 +46,7 @@ class Game implements ModelInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getBoard(): string
     {
@@ -53,8 +54,7 @@ class Game implements ModelInterface
     }
 
     /**
-     * @param string $board
-     * @return Game
+     * @inheritDoc
      */
     public function setBoard(string $board): self
     {
@@ -64,7 +64,7 @@ class Game implements ModelInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getStatus(): string
     {
@@ -72,13 +72,41 @@ class Game implements ModelInterface
     }
 
     /**
-     * @param string $status
-     * @return Game
+     * @inheritDoc
      */
     public function setStatus(string $status): self
     {
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWinner(): string
+    {
+        return $this->winner;
+    }
+
+    /**
+     * @param string $winner
+     * @return Game
+     */
+    public function setWinner(string $winner): self
+    {
+        $this->winner = $winner;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isEmpty(): bool
+    {
+        $board = str_replace(self::SYMBOL_EMPTY, '', $this->board);
+
+        return empty($board);
     }
 }

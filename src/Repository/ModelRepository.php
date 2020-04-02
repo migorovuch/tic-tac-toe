@@ -33,7 +33,7 @@ class ModelRepository implements StorageRepositoryInterface, Service
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function generateId(): string
     {
@@ -49,8 +49,7 @@ class ModelRepository implements StorageRepositoryInterface, Service
     }
 
     /**
-     * @param array $criteria
-     * @return array|null
+     * @inheritDoc
      */
     public function findAll(array $criteria = []): ?array
     {
@@ -63,5 +62,13 @@ class ModelRepository implements StorageRepositoryInterface, Service
     public function save(ModelInterface $data): ModelInterface
     {
         return $this->persistence->persist($this->modelName, $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(string $id)
+    {
+        $this->persistence->delete($this->modelName, $id);
     }
 }

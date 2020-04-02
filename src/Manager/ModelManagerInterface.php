@@ -1,20 +1,11 @@
 <?php
 
-namespace TicTacToe\Repository;
+namespace TicTacToe\Manager;
 
 use TicTacToe\Model\ModelInterface;
 
-/**
- * Interface StorageRepositoryInterface
- * @package TicTacToe\Repository
- */
-interface StorageRepositoryInterface
+interface ModelManagerInterface
 {
-    /**
-     * @return string
-     */
-    public function generateId(): string;
-
     /**
      * @param string $id
      * @return ModelInterface|null
@@ -37,4 +28,5 @@ interface StorageRepositoryInterface
      * @param string $modelName
      */
     public function delete(string $id);
+
 }

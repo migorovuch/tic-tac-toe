@@ -1,6 +1,6 @@
 <?php
 
-namespace TicTacToe\Core;
+namespace TicTacToe\Core\Http;
 
 /**
  * Class Request

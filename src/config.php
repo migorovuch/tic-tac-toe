@@ -21,6 +21,18 @@ return [
             'TicTacToe\\Controller\\GameController#create',
             'create_game'
         ],
+        [
+            'PUT',
+            '/games/[guid:id]',
+            'TicTacToe\\Controller\\GameController#move',
+            'move_game'
+        ],
+        [
+            'DELETE',
+            '/games/[guid:id]',
+            'TicTacToe\\Controller\\GameController#delete',
+            'delete_game'
+        ],
     ],
     'urlMatchTypes' => [
         'guid' => '\{?[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\}?'
