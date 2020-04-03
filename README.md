@@ -2,7 +2,7 @@
 
 ## Installation
 
-+ Update your hosts file (add php-docker.local)
++ Update your hosts file (add tictactoe.local)
 + Start docker containers
 ```
 docker-compose up -d
@@ -12,7 +12,7 @@ docker-compose up -d
 composer install
 ```
 
-Game is available by url http://php-docker.local:8080
+Game is available by url http://tictactoe.local:8080
 
 ## Game flow
 
