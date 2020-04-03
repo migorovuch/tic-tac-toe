@@ -9,7 +9,9 @@ namespace TicTacToe\Model;
 interface GameInterface extends ModelInterface
 {
     const STATUS_RUNNING = 'RUNNING';
-    const STATUS_END = 'END';
+    const STATUS_X_WON = 'X_WON';
+    const STATUS_O_WON = 'O_WON';
+    const STATUS_DRAW = 'DRAW';
 
     const SYMBOL_X = 'X';
     const SYMBOL_O = 'O';
@@ -36,17 +38,6 @@ interface GameInterface extends ModelInterface
      * @return GameInterface
      */
     public function setStatus(string $status): self;
-
-    /**
-     * @return string
-     */
-    public function getWinner(): string;
-
-    /**
-     * @param string $status
-     * @return GameInterface
-     */
-    public function setWinner(string $status): self;
 
     /**
      * @return bool

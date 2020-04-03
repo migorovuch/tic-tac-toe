@@ -19,26 +19,20 @@ class GameManager extends AbstractModelManager implements GameManagerInterface, 
     {
         /** @var GameInterface $game */
         $game = $this->storageRepository->find($id);
-        if ($game->getStatus() == GameInterface::STATUS_END) {
+        if ($game->getStatus() !== GameInterface::STATUS_RUNNING) {
             throw new RuntimeException('Game is finished', Response::HTTP_BAD_REQUEST);
         }
         $this->validator->validate($newMove);
         $game = $this->mergeBoards($game, $newMove);
         if ($this->isWinner($game, GameInterface::SYMBOL_X)) {
-            $game
-                ->setStatus(GameInterface::STATUS_END)
-                ->setWinner(GameInterface::SYMBOL_X);
+            $game->setStatus(GameInterface::STATUS_X_WON);
         } else {
             $game = $this->doMove($game);
             if ($this->isWinner($game, GameInterface::SYMBOL_O)) {
-                $game
-                    ->setStatus(GameInterface::STATUS_END)
-                    ->setWinner(GameInterface::SYMBOL_O);
+                $game->setStatus(GameInterface::STATUS_O_WON);
             } elseif (strpos($game->getBoard(), GameInterface::SYMBOL_EMPTY) === false) {
                 //END GAME
-                $game
-                    ->setStatus(GameInterface::STATUS_END)
-                    ->setWinner(GameInterface::SYMBOL_EMPTY);
+                $game->setStatus(GameInterface::STATUS_DRAW);
             }
         }
         $game = $this->storageRepository->save($game);

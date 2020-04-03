@@ -26,7 +26,7 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function match($requestUrl = null, $requestMethod = null): array
+    public function match($requestUrl = null, $requestMethod = null)
     {
         return $this->altoRouter->match($requestUrl, $requestMethod);
     }

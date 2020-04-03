@@ -23,11 +23,6 @@ class Game implements GameInterface
     protected string $status = self::STATUS_RUNNING;
 
     /**
-     * @var string
-     */
-    protected ?string $winner = null;
-
-    /**
      * @inheritDoc
      */
     public function getId(): ?string
@@ -77,25 +72,6 @@ class Game implements GameInterface
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWinner(): string
-    {
-        return $this->winner;
-    }
-
-    /**
-     * @param string $winner
-     * @return Game
-     */
-    public function setWinner(string $winner): self
-    {
-        $this->winner = $winner;
 
         return $this;
     }
