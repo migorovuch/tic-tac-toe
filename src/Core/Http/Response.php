@@ -8,12 +8,14 @@ namespace TicTacToe\Core\Http;
 class Response
 {
     const HTTP_OK = 200;
+    const HTTP_CREATED = 201;
     const HTTP_BAD_REQUEST = 400;
     const HTTP_NOT_FOUND = 404;
     const HTTP_INTERNAL_SERVER_ERROR = 500;
 
     const REQUEST_STATUS = [
         self::HTTP_OK => 'OK',
+        self::HTTP_CREATED => 'Created successful',
         self::HTTP_NOT_FOUND => 'Not Found',
         self::HTTP_BAD_REQUEST => 'Bad request',
         self::HTTP_INTERNAL_SERVER_ERROR => 'Internal Server Error',

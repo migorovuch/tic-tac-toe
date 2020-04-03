@@ -4,6 +4,7 @@ namespace TicTacToe\Controller;
 
 use TicTacToe\Core\Http\Request;
 use TicTacToe\Core\Http\Response;
+use TicTacToe\Core\RouterInterface;
 use TicTacToe\Core\Serializer\SerializerInterface;
 use TicTacToe\Manager\GameManagerInterface;
 use TicTacToe\Model\Game;
@@ -48,12 +49,14 @@ class GameController
     /**
      * @param GameManagerInterface $gameManager
      * @param SerializerInterface $serializer
+     * @param RouterInterface $router
      * @param Request $request
      * @return Response
      */
     public function create(
         GameManagerInterface $gameManager,
         SerializerInterface $serializer,
+        RouterInterface $router,
         Request $request
     ): Response {
         /** @var Game $game */
@@ -63,7 +66,11 @@ class GameController
         }
         $game = $gameManager->save($game);
 
-        return new Response($game);
+        return new Response(
+            $game,
+            Response::HTTP_CREATED,
+            ['Location' => $request->getBaseUrl().$router->generate('game', ['id' => $game->getId()])]
+        );
     }
 
     /**

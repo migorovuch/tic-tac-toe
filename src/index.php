@@ -20,6 +20,7 @@ use ElisDN\Hydrator\Hydrator;
 use TicTacToe\Manager\GameManagerInterface;
 use TicTacToe\Manager\GameManager;
 use TicTacToe\Validator\GameValidator;
+use TicTacToe\Core\RouterInterface;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
@@ -48,7 +49,8 @@ try {
                 $serviceLocator->get(GameRepositoryInterface::class),
                 $serviceLocator->get(GameValidator::class),
             )
-        );
+        )
+        ->addInstance(RouterInterface::class, $router);
     $core = new Core($router, $serviceLocator);
     $response = $core->run($request);
 } catch (Throwable $exception) {
@@ -58,5 +60,8 @@ try {
     );
 }
 header("HTTP/1.1 {$response->getCode()} {$response->getStatus()}");
+foreach ($response->getHeader() as $headerKey => $headerItem) {
+    header("{$headerKey}: $headerItem");
+}
 
 echo $serializer->serialize($response->getContent());

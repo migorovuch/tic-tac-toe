@@ -7,7 +7,7 @@ use AltoRouter;
 /**
  * Class Router
  */
-class Router implements RouterInterface
+class Router implements RouterInterface, Service
 {
     /**
      * @var AltoRouter
@@ -29,5 +29,14 @@ class Router implements RouterInterface
     public function match($requestUrl = null, $requestMethod = null)
     {
         return $this->altoRouter->match($requestUrl, $requestMethod);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \Exception
+     */
+    public function generate(string $routeName, array $params = []): string
+    {
+        return $this->altoRouter->generate($routeName, $params);
     }
 }

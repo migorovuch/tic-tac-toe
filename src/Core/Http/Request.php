@@ -103,4 +103,15 @@ class Request
     {
         return $this->content;
     }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl(): string
+    {
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https' ? 'https' : 'http';
+
+        return $protocol.'://'.$hostName;
+    }
 }
