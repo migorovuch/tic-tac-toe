@@ -38,17 +38,22 @@ class JsonSerializer implements SerializerInterface, Service
 
     /**
      * @inheritDoc
-     * @throws \ReflectionException
      */
     public function serialize($data): string
     {
-        if (is_array($data)) {
-            $data = $this->extractArray($data);
-        } elseif (is_object($data)) {
-            $data = $this->extractObject($data);
+        $serializedData = '';
+        try {
+            if (is_array($data)) {
+                $data = $this->extractArray($data);
+            } elseif (is_object($data)) {
+                $data = $this->extractObject($data);
+            }
+            $serializedData = $this->jsonSerializer->serialize($data);
+        } catch (ReflectionException $exception) {
+            $serializedData = json_encode(['reason' => $exception->getMessage()]);
         }
 
-        return $this->jsonSerializer->serialize($data);
+        return $serializedData;
     }
 
     /**
