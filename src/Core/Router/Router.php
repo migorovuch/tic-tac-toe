@@ -1,8 +1,9 @@
 <?php
 
-namespace TicTacToe\Core;
+namespace TicTacToe\Core\Router;
 
 use AltoRouter;
+use TicTacToe\Core\Service;
 
 /**
  * Class Router
@@ -26,9 +27,15 @@ class Router implements RouterInterface, Service
     /**
      * @inheritDoc
      */
-    public function match($requestUrl = null, $requestMethod = null)
+    public function match($requestUrl = null, $requestMethod = null): ?Route
     {
-        return $this->altoRouter->match($requestUrl, $requestMethod);
+        $route = null;
+        if ($routeParams = $this->altoRouter->match($requestUrl, $requestMethod)) {
+            [$controllerName, $actionName] = explode('#', $routeParams['target']);
+            $route = new Route($controllerName, $actionName, $routeParams['params'], $routeParams['name']);
+        }
+
+        return $route;
     }
 
     /**

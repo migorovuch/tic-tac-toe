@@ -8,7 +8,6 @@ use TicTacToe\Core\Core;
 use TicTacToe\Core\Http\Response;
 use TicTacToe\Core\Http\Request;
 use TicTacToe\Core\ServiceLocator;
-use TicTacToe\Core\Router;
 use TicTacToe\Persistence\PersistenceInterface;
 use TicTacToe\Persistence\SessionPersistence;
 use TicTacToe\Core\Serializer\JsonSerializer;
@@ -20,7 +19,8 @@ use ElisDN\Hydrator\Hydrator;
 use TicTacToe\Manager\GameManagerInterface;
 use TicTacToe\Manager\GameManager;
 use TicTacToe\Validator\GameValidator;
-use TicTacToe\Core\RouterInterface;
+use TicTacToe\Core\Router\RouterInterface;
+use TicTacToe\Core\Router\Router;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 

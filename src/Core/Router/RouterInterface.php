@@ -1,6 +1,6 @@
 <?php
 
-namespace TicTacToe\Core;
+namespace TicTacToe\Core\Router;
 
 interface RouterInterface
 {
@@ -8,9 +8,9 @@ interface RouterInterface
      * Match a given Request Url against stored routes
      * @param string $requestUrl
      * @param string $requestMethod
-     * @return array|boolean Array with route information on success, false on failure (no match).
+     * @return Route|null Array with route information on success, false on failure (no match).
      */
-    public function match($requestUrl = null, $requestMethod = null);
+    public function match($requestUrl = null, $requestMethod = null): ?Route;
 
     /**
      * Reversed routing

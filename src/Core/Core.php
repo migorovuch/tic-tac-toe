@@ -6,6 +6,7 @@ use RuntimeException;
 use ReflectionClass;
 use TicTacToe\Core\Http\Request;
 use TicTacToe\Core\Http\Response;
+use TicTacToe\Core\Router\RouterInterface;
 
 class Core
 {
@@ -45,11 +46,11 @@ class Core
                 Response::HTTP_NOT_FOUND
             );
         }
-        [$controllerName, $actionName] = explode('#', $route['target']);
-        $controllerReflection = new ReflectionClass($controllerName);
+        $controllerReflection = new ReflectionClass($route->getControllerName());
         $controller = $controllerReflection->newInstance();
-        $actionReflection = $controllerReflection->getMethod($actionName);
+        $actionReflection = $controllerReflection->getMethod($route->getActionName());
         $params = [];
+        $routeParams = $route->getParams();
         foreach ($actionReflection->getParameters() as $reflectionParameter) {
             $param = null;
             if (($parameterClassReflection = $reflectionParameter->getClass())) {
@@ -58,8 +59,8 @@ class Core
                 } elseif ($parameterClassReflection->getName() == Request::class) {
                     $param = $request;
                 }
-            } elseif (isset($route['params'][$reflectionParameter->getName()])) {
-                $param = $route['params'][$reflectionParameter->getName()];
+            } elseif (isset($routeParams[$reflectionParameter->getName()])) {
+                $param = $routeParams[$reflectionParameter->getName()];
             }
             $params[] = $param;
         }

@@ -4,7 +4,7 @@ namespace TicTacToe\Controller;
 
 use TicTacToe\Core\Http\Request;
 use TicTacToe\Core\Http\Response;
-use TicTacToe\Core\RouterInterface;
+use TicTacToe\Core\Router\RouterInterface;
 use TicTacToe\Core\Serializer\SerializerInterface;
 use TicTacToe\Manager\GameManagerInterface;
 use TicTacToe\Model\Game;
