@@ -8,50 +8,23 @@ use TicTacToe\Core\Core;
 use TicTacToe\Core\Http\Response;
 use TicTacToe\Core\Http\Request;
 use TicTacToe\Core\ServiceLocator;
-use TicTacToe\Persistence\PersistenceInterface;
-use TicTacToe\Persistence\SessionPersistence;
-use TicTacToe\Core\Serializer\JsonSerializer;
-use TicTacToe\Repository\GameRepositoryInterface;
-use Zumba\JsonSerializer\JsonSerializer as ZumbaJsonSerializer;
-use TicTacToe\Repository\GameRepository;
 use TicTacToe\Core\Serializer\SerializerInterface;
-use ElisDN\Hydrator\Hydrator;
-use TicTacToe\Manager\GameManagerInterface;
-use TicTacToe\Manager\GameManager;
-use TicTacToe\Validator\GameValidator;
-use TicTacToe\Core\Router\RouterInterface;
-use TicTacToe\Core\Router\Router;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
 session_start();
 
 $response = new Response();
-$serializer = new JsonSerializer(new ZumbaJsonSerializer(), new Hydrator());
+$serializer = null;
+
 try {
-    $config = require_once 'config.php';
-    $altoRouter = new AltoRouter($config['routes'], $config['basePath'], $config['urlMatchTypes']);
-    $router = new Router($altoRouter);
+    /** @var ServiceLocator $serviceLocator */
+    $serviceLocator = require_once 'bootstrap.php';
+    $serializer = $serviceLocator->get(SerializerInterface::class);
+
     $request = new Request($_GET, $_POST, $_SERVER, file_get_contents('php://input'));
 
-    $serviceLocator = new ServiceLocator();
-    $serviceLocator
-        ->addInstance(PersistenceInterface::class, new SessionPersistence())
-        ->addInstance(
-            GameRepositoryInterface::class,
-            new GameRepository($serviceLocator->get(PersistenceInterface::class))
-        )
-        ->addInstance(SerializerInterface::class, $serializer)
-        ->addInstance(GameValidator::class, new GameValidator())
-        ->addInstance(
-            GameManagerInterface::class,
-            new GameManager(
-                $serviceLocator->get(GameRepositoryInterface::class),
-                $serviceLocator->get(GameValidator::class),
-            )
-        )
-        ->addInstance(RouterInterface::class, $router);
-    $core = new Core($router, $serviceLocator);
+    $core = new Core($serviceLocator);
     $response = $core->run($request);
 } catch (Throwable $exception) {
     $response = new Response(
@@ -64,4 +37,6 @@ foreach ($response->getHeader() as $headerKey => $headerItem) {
     header("{$headerKey}: $headerItem");
 }
 
-echo $serializer->serialize($response->getContent());
+if ($serializer) {
+    echo $serializer->serialize($response->getContent());
+}

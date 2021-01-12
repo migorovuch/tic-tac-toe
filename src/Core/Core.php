@@ -22,12 +22,11 @@ class Core
 
     /**
      * Router constructor.
-     * @param RouterInterface $router
      * @param ServiceLocator $serviceLocator
      */
-    public function __construct(RouterInterface $router, ServiceLocator $serviceLocator)
+    public function __construct(ServiceLocator $serviceLocator)
     {
-        $this->router = $router;
+        $this->router = $serviceLocator->get(RouterInterface::class);
         $this->serviceLocator = $serviceLocator;
     }
 
